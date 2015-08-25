@@ -1,0 +1,209 @@
+" Modelines and Notes { 
+"   vim: set foldmarker={,} foldlevel=0
+"
+"   Vimrc inspiré de www.vi-improved.org/vimrc.php et 
+"   http://amix.dk/vim/vimrc.html
+" }
+
+" Basics {
+    " On supprime la compatibilité avec vi
+    set nocompatible
+    " Utilisation d'un fond sombre
+    set background=dark
+    " Coloration syntaxique
+    syntax on
+" }
+
+" General {
+    " Charger les plugins et indentations en fonction du type de fichier
+    filetype plugin indent on
+    " Le retour arrière est plus flexible
+    set backspace=indent,eol,start
+    " Partage du presse-papiers entre les fenêtres
+    set clipboard+=unnamed
+    " Support des formats de fichier, dans cet ordre
+    set fileformats=unix,dos,mac
+    " On peut changer de buffer sans sauvegarder
+    set hidden
+    "Utilisation de la souris partout
+    set mouse=a
+    " Pas de bruit
+    set noerrorbells
+    " Qu'est ce qui fait changer de ligne le curseur (presque tout)
+    set whichwrap=b,s,<,>,~,[,]
+    "             | | | | | | |
+    "             | | | | | | +-- <Right> en mode insert et replace
+    "             | | | | | +---- <Left> en  mode insert et replace
+    "             | | | | +------ "~" en mode normal
+    "             | | | +-------- <Right> en mode normal et visual
+    "             | | +---------- <Left> en mode normal et visual
+    "             | +------------ <Space> en mode normal et visual
+    "             +-------------- <BS> en mode normal et visual
+    " On active le wildmenu
+    set wildmenu
+    " Extensions ignorées par le wildmenu
+    set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,
+                \*.aux,*.idx,*.lof,*.lot,*.out,*.toc
+    " Relit automatiquement le fichier s'il est changé à l'extérieur
+    set autoread
+    " Quand le vimrc est édité, on le recharge
+    autocmd! bufwritepost vimrc source ~/.vim/vimrc
+" }
+
+" Vim UI {
+    " Surligne la ligne courante
+    set cursorline
+    " Active la recherche incrémentale
+    set incsearch
+    " Toujours montrer la ligne de status
+    set laststatus=2
+    " Ne pas redessiner lors d'exécutions de macros
+    set lazyredraw
+    " Laisser le curseur où il est
+    set nostartofline
+    " Ne pas clignoter
+    set novisualbell
+    " Activer la numérotation des lignes
+    set number
+    " Prévenir dès que quelque chose est changé via :...
+    set report=0
+    " Toujours montrer la position du curseur
+    set ruler
+    " Nombre minimum de lignes à garder au dessus et en dessous du curseur
+    set scrolloff=10
+    " Raccourci les messages de Vim
+    set shortmess=aO
+    " Montre les commandes en train d'être tapées
+    set showcmd
+    " Montre les parenthèses jumelles
+    set showmatch
+    " Ligne de status personnalisée
+    set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%l,%v]
+    "              | | | | |  |   |      |  |     |  | | | | | |  |   |      |
+    "              | | | | |  |   |      |  |     |  +-- current column
+    "              | | | | |  |   |      |  |     +-- current line
+    "              | | | | |  |   |      |  +-- current % into file
+    "              | | | | |  |   |      +-- current syntax in square brackets
+    "              | | | | |  |   +-- current fileformat
+    "              | | | | |  +-- number of lines
+    "              | | | | +-- preview flag in square brackets
+    "              | | | +-- help flag in square brackets
+    "              | | +-- readonly flag in square brackets
+    "              | +-- modified flag in square brackets
+    "              +-- full path to file in the buffer
+" }
+
+" Text formatting/Layout {
+    " Les tabs sont remplacés par des espaces
+    set expandtab
+    " Quand je suis à 3 espaces et que je fais tab, ça va à 4, pas 7
+    set shiftround
+    " Nombre d'espace pour auto-indent
+    set shiftwidth=4
+    " Combien d'espaces pour un tab
+    set softtabstop=4
+    " Combien d'espaces pour un vrai tab
+    set tabstop=8
+    " Ignore la casse pour la recherche
+    set ignorecase
+    " Casse pour la recherche plus intelligent
+    set smartcase
+    " Infère la casse pour l'autocomplétion
+    set infercase
+    " Longueur d'une ligne
+    set textwidth=80
+    " Auto indentation
+    set autoindent
+    " Indentation plus intelligente
+    set smartindent
+" }
+
+" Spell checking {
+    " Chargement du dictionnaire français
+    set spelllang=fr
+    " ,ss permet d'activer ou de désactiver la correction orthographique
+    map <leader>ss :setlocal spell!<cr>
+    " Prochain mot
+    map <leader>sn ]s
+    " Mot précédent
+    map <leader>sp [s
+    " Ajouter le mot au dictionnaire
+    map <leader>sa zg
+    " Suggérer un mot de remplacement
+    map <leader>s? z=
+" }
+
+" Folding {
+    " Activer le folding
+    set foldenable
+    " Marqueurs par défaut pour le fold
+    set foldmarker={,}
+    " Fold suivant les marqueurs
+    set foldmethod=marker
+    " N'autofold rien
+    set foldlevel=100
+    " Quels mouvements ouvrent les folds
+    set foldopen=block,hor,mark,percent,quickfix,tag
+
+    " Fonction perso pour le texte des folds
+    function SimpleFoldText() " {
+        return getline(v:foldstart).' '
+    endfunction " }
+    set foldtext=SimpleFoldText()
+    " Sauvegarde et charge les folds
+    au BufWinLeave * mkview
+    au BufRead,BufNewFile * silent loadview
+" }
+
+" Plugin settings {
+    " VimWiki {
+        if has("win16") || has("win32") || has("win64")
+            let g:vimwiki_list = [{'path': 'C:\Users\Zilbuz\Donnees\Boulot\Notes'}]
+        else
+            let g:vimwiki_list = [{'path': '/media/windows/Users/Zilbuz/Donnees/Boulot/Notes'}]
+        endif
+    " }
+
+    " BufExplorer {
+        " Ne pas montrer l'aide par défaut
+        let g:bufExplorerDefaultHelp=0
+        " Montrer les chemins relatifs
+        let g:bufExplorerShowRelativePath=1
+        " Trie les buffers par nom
+        let g:bufExplorerSortBy = "name"
+    " }
+
+    " Minibuffer {
+        " Place les buffers dans des fenêtres non-particulières
+        let g:miniBufExplModeSelTarget=1
+        " Ouvre le miniBufExpl si il y a plus d'un buffer
+        let g:miniBufExplorerMoreThanOne=1
+        " Simple clic pour sélectionner un buffer
+        let g:miniBufExplUseSingleClick=1
+        " Change de buffer avec c-hjkl
+        let g:miniBufExplMapWindowNavVim=1
+        " Change de buffer avec c-tab et c-s-tab
+        let g:miniBufExplMapCTabSwitchBufs = 1
+        " Met à jour le miniBufExpl quand on charge un buffer
+        autocmd BufRead,BufNew :call UMiniBufExplorer
+    " }
+
+" }
+
+" Mappings/Abbreviations {
+    " ROT13 - fun
+    map <F12> ggVGg?
+
+    " Ctrl espace pour l'autocomplétion
+    noremap <C-space> <C-p>
+
+    " Change la touche <leader> pour ,
+    let mapleader = ","
+    let g:mapleader = ","
+    " Sauvegarde rapide en mode normal
+    nmap <leader>w :w!<cr>
+    " Edition rapide du vimrc en mode normal
+    nmap <leader>e :e! ~/.vim/vimrc<cr>
+    " Insère la date courante
+    iab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
+" }

@@ -1,0 +1,70 @@
+# Options pour urxvt
+!URxvt.background:		black
+!URxvt.cursorColor:		white
+!URxvt.foreground:		white
+
+URxvt.transparent:		True
+URxvt.shading:			65
+
+URxvt.scrollBar:		False
+
+# URxvt.font:			"Bitstream Vera Sans Mono Bold-10"
+
+# Config de http://xsugar-freex.blogspot.com/2009/06/urxvt-voila-un-terminal-quil-est-bien.html
+
+! Police TTF
+URxvt*font: xft:Bitstream Vera Sans Mono:style=Regular:pixelsize=13:antialias=false
+
+! Taille du buffer et barre de défilement
+URxvt*saveLines: 10000
+!URxvt*scrollBar: true
+URxvt*scrollBar_right: true
+URxvt*scrollColor: #c2dd5a
+URxvt*scrollBar_floating: true
+URxvt*scrollstyle: plain
+
+! Curseur et nom du terminal
+URxvt*cursorColor: white
+
+! Couleurs (c'est la palette Tango)
+URxvt*foreground: #f2f2f2
+URxvt*background: #101010
+URxvt*color0: #101010
+URxvt*color1: #f13a21
+URxvt*color2: #93f91d
+URxvt*color3: #ffd00a
+URxvt*color4: #004f9e
+URxvt*color5: #ec0048
+URxvt*color6: #2aa7e7
+URxvt*color7: #f2f2f2
+URxvt*color8: #1d202f
+URxvt*color9: #ff361e
+URxvt*color10: #ffc005
+URxvt*color11: #93ff00
+URxvt*color12: #0071ff
+URxvt*color13: #ef0051
+URxvt*color14: #4bb8fd
+URxvt*color15: #a020f0
+
+! Utilisation de la vraie transparence
+!urxvt*depth: 32
+!urxvt*background: rgba:0000/0000/0000/dddd
+
+# Extensions
+URxvt.perl-ext-common: default,matcher,tabbed
+
+URxvt.urlLauncher: opera
+
+URxvt.tabbed.tabbar-fg: 7
+URxvt.tabbed.tabbar-bg: 0
+URxvt.tabbed.tab-fg: 1
+URxvt.tabbed.tab-bg: 0
+
+URxvt.urgentOnBell:   true
+
+! Les touches C-gauche et C-droite fonctionnent
+URxvt.keysym.Control-Up:	\033[1;5A
+URxvt.keysym.Control-Down:	\033[1;5B
+URxvt.keysym.Control-Left:	\033[1;5D
+URxvt.keysym.Control-Right:	\033[1;5C
+
